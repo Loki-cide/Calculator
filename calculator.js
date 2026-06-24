@@ -1,9 +1,9 @@
 var screen = document.querySelector('#screen');
 var btn = document.querySelectorAll('.btn');
 
-for (item of btn) {
+for (const item of btn) {
     item.addEventListener('click', (e) => {
-        btntext = e.target.innerText;
+        let btntext = e.target.innerText;
 
         if (btntext == 'x') {
             btntext = '*';
@@ -14,6 +14,10 @@ for (item of btn) {
         }
         screen.value += btntext;
     });
+}
+
+function percentage() {
+    screen.value = parseFloat(screen.value) / 100;
 }
 
 function sin() {
@@ -29,7 +33,7 @@ function tan() {
 }
 
 function pow() {
-    screen.value = Math.pow(screen.value, 2);
+    screen.value += '**';
 }
 
 function sqrt() {
@@ -37,30 +41,34 @@ function sqrt() {
 }
 
 function log() {
-    screen.value = Math.log(screen.value);
+    screen.value = Math.log10(screen.value);
 }
 
 function pi() {
-    screen.value = 3.14159265359;
+    screen.value = Math.PI;
 }
 
 function e() {
-    screen.value = 2.71828182846;
+    screen.value = Math.E;
 }
 
 function fact() {
-    var i, num, f;
-    f = 1
-    num = screen.value;
-    for (i = 1; i <= num; i++) {
-        f = f * i;
+    const num = parseInt(screen.value);
+
+    if (num < 0 || isNaN(num)) {
+        screen.value = 'Error';
+        return;
     }
 
-    i = i - 1;
+    let result = 1;
 
-    screen.value = f;
+    for (let i = 2; i <= num; i++) {
+        result *= i;
+    }
+
+    screen.value = result;
 }
 
 function backspc() {
-    screen.value = screen.value.substr(0, screen.value.length - 1);
+    screen.value = screen.value.slice(0, -1);
 }
